@@ -1,25 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import NavBar from "./components/navbar";
+import Cards from "./components/cards";
+import React, { Component } from "react";
+import getGyms from "./services/fakeGym";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    gyms: getGyms(),
+  };
+
+  handleBookmark = (gym) => {
+    const gyms = [...this.state.gyms];
+    const index = gyms.indexOf(gym);
+    gyms[index] = { ...gym };
+    gyms[index].bookmarked = !gyms[index].bookmarked;
+    this.setState({ gyms });
+  };
+
+  handleLike = (gym) => {
+    const gyms = [...this.state.gyms];
+    const index = gyms.indexOf(gym);
+    gyms[index] = { ...gym };
+    gyms[index].liked = !gyms[index].liked;
+    this.setState({ gyms });
+  };
+
+  handleDelete = (gym) => {
+    let gyms = this.state.gyms;
+    gyms = gyms.filter((g) => g.Title !== gym.Title);
+    this.setState({ gyms });
+  };
+  render() {
+    console.log(this.state.gyms);
+    return (
+      <React.Fragment>
+        <NavBar />
+        <div className="container ">
+          <div className="row">
+            {this.state.gyms.map((g) => {
+              return (
+                <div className="col-4 d-flex ">
+                  <Cards
+                    gym={g}
+                    onBookmark={() => {
+                      return this.handleBookmark(g);
+                    }}
+                    onLike={() => {
+                      return this.handleLike(g);
+                    }}
+                    onDelete={() => {
+                      return this.handleDelete(g);
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
