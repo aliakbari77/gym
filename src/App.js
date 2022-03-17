@@ -34,7 +34,7 @@ class App extends Component {
     console.log(this.state.gyms);
     return (
       <React.Fragment>
-        <NavBar />
+        <NavBar totalGym={this.state.gyms.length} />
         <div className="container ">
           <div className="row">
             {this.state.gyms.map((g) => {

@@ -7,7 +7,9 @@ class NavBar extends Component {
       <React.Fragment>
         <div className="container">
           <nav className="navbar navbar-expand navbar-light bg-light">
-            <span className="navbar-brand mb-0 h1">GYM</span>
+            <span className="navbar-brand mb-0 h1">
+              GYM #{this.props.totalGym}
+            </span>
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
               <div className="navbar-nav">
                 <a href="#" className="nav-item nav-link active">
